@@ -59,13 +59,13 @@ class Game {
       { x: width / 2 - 180, y: height - 5500, image: obstacle2Image }
     ];
 
-    // Adding fuel sprite in the game
+    // Adicionar sprite de combustível no jogo
     this.addSprites(fuels, 4, fuelImage, 0.02);
 
-    // Adding coin sprite in the game
+    // Adicionar sprite de moeda no jogo
     this.addSprites(powerCoins, 18, powerCoinImage, 0.09);
 
-    //Adding obstacles sprite in the game
+    //Adicionar sprite de obstáculo no jogo
     this.addSprites(
       obstacles,
       obstaclesPositions.length,
@@ -102,14 +102,14 @@ class Game {
     form.titleImg.class("gameTitleAfterEffect");
 
     //C39
-    this.resetTitle.html("Reset Game");
+    this.resetTitle.html("Reiniciar");
     this.resetTitle.class("resetText");
     this.resetTitle.position(width / 2 + 200, 40);
 
     this.resetButton.class("resetButton");
     this.resetButton.position(width / 2 + 230, 100);
 
-    this.leadeboardTitle.html("Leaderboard");
+    this.leadeboardTitle.html("Placar");
     this.leadeboardTitle.class("resetText");
     this.leadeboardTitle.position(width / 3 - 60, 40);
 
@@ -134,13 +134,13 @@ class Game {
       this.showLife();
       this.showLeaderboard();
 
-      //index of the array
+        //índice da matriz
       var index = 0;
       for (var plr in allPlayers) {
-        //add 1 to the index for every loop
+        //adicione 1 ao índice para cada loop
         index = index + 1;
 
-        //use data form the database to display the cars in x and y direction
+        //use os dados do banco de dados para exibir os carros nas direções x e y
         var x = allPlayers[plr].positionX;
         var y = height - allPlayers[plr].positionY;
 
@@ -155,7 +155,7 @@ class Game {
           this.handleFuel(index);
           this.handlePowerCoins(index);
 
-          // Changing camera position in y direction
+          //alterar a posição da câmera na direção y
           camera.position.y = cars[index - 1].position.y;
         }
       }
@@ -165,10 +165,10 @@ class Game {
         player.update();
       }
 
-      // handling keyboard events
+      //manipulando eventos de teclado
       this.handlePlayerControls();
 
-      // Finshing Line
+      //Linha de chegada
       const finshLine = height * 6 - 100;
 
       if (player.positionY > finshLine) {
@@ -224,7 +224,7 @@ class Game {
       (players[0].rank === 0 && players[1].rank === 0) ||
       players[0].rank === 1
     ) {
-      // &emsp;    This tag is used for displaying four spaces.
+      // &emsp;    Essa etiqueta é usada para exibir quatro espaços.
       leader1 =
         players[0].rank +
         "&emsp;" +
@@ -279,15 +279,15 @@ class Game {
   }
 
   handleFuel(index) {
-    // Adding fuel
+    //adicionando combustível
     cars[index - 1].overlap(fuels, function(collector, collected) {
       player.fuel = 185;
-      //collected is the sprite in the group collectibles that triggered
-      //the event
+      //o sprite é coletado no grupo de colecionáveis que desencadeou
+      //o evento
       collected.remove();
     });
 
-    // Reducing Player car fuel
+    //reduzindo o combustível do carro
     if (player.fuel > 0 && this.playerMoving) {
       player.fuel -= 0.3;
     }
@@ -302,16 +302,16 @@ class Game {
     cars[index - 1].overlap(powerCoins, function(collector, collected) {
       player.score += 21;
       player.update();
-      //collected is the sprite in the group collectibles that triggered
-      //the event
+      //o sprite é coletado no grupo de colecionáveis que desencadeou
+      //o evento
       collected.remove();
     });
   }
 
   showRank() {
     swal({
-      title: `Awesome!${"\n"}Rank${"\n"}${player.rank}`,
-      text: "You reached the finish line successfully",
+      title: `Incrível!${"\n"}Rank${"\n"}${player.rank}`,
+      text: "Você alcançou a linha de chegada com sucesso!",
       imageUrl:
         "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
       imageSize: "100x100",
@@ -321,12 +321,12 @@ class Game {
 
   gameOver() {
     swal({
-      title: `Game Over`,
-      text: "Oops you lost the race....!!!",
+      title: `Fim de Jogo`,
+      text: "Oops você perdeu a corrida!",
       imageUrl:
         "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
       imageSize: "100x100",
-      confirmButtonText: "Thanks For Playing"
+      confirmButtonText: "Obrigado por jogar"
     });
   }
 }
